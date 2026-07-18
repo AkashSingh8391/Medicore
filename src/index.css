@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — MediCore Health Platform
+   Palette: clinical trust (deep blue + living-mint), not the
+   generic cream/terracotta or dark/neon AI-default looks.
+   Signature element: the "vitals pulse" — an ECG heartbeat line
+   used as a live-status motif (navbar, loaders, empty/error states).
+   ============================================================ */
+@theme {
+  --color-ink-900: #0B1E2B;
+  --color-ink-700: #1B3446;
+  --color-ink-500: #4A6272;
+  --color-ink-300: #8FA4B0;
+  --color-ink-100: #DCE6EA;
+
+  --color-clinical-900: #0A3A4A;
+  --color-clinical-700: #0F5C6E;
+  --color-clinical-500: #147D8F;
+  --color-clinical-300: #6FB8C4;
+  --color-clinical-100: #E3F2F4;
+
+  --color-vital-600: #0E9F7E;
+  --color-vital-500: #14B892;
+  --color-vital-100: #DBF7EE;
+
+  --color-amber-600: #B7791F;
+  --color-amber-500: #E0A527;
+  --color-amber-100: #FBF0D9;
+
+  --color-coral-600: #C74B4B;
+  --color-coral-500: #E2685F;
+  --color-coral-100: #FBE4E2;
+
+  --color-surface: #FFFFFF;
+  --color-canvas: #F4F8F9;
+  --color-canvas-dim: #EAF1F2;
+
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-card: 1rem;
+  --shadow-card: 0 1px 2px rgba(11,30,43,0.04), 0 8px 24px -8px rgba(11,30,43,0.10);
+  --shadow-card-hover: 0 2px 4px rgba(11,30,43,0.06), 0 16px 32px -12px rgba(11,30,43,0.16);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-ink-900);
+  background: var(--color-canvas);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-data {
+  font-family: var(--font-data);
+}
+
+.pulse-line {
+  width: 100%;
+  height: 28px;
+  overflow: hidden;
+  display: block;
+}
+.pulse-line path {
+  stroke: var(--color-vital-500);
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 340;
+  stroke-dashoffset: 340;
+  animation: pulse-draw 2.4s ease-in-out infinite;
+}
+@keyframes pulse-draw {
+  0% { stroke-dashoffset: 340; opacity: 0.3; }
+  50% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: -340; opacity: 0.3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-line path { animation: none; stroke-dashoffset: 0; }
+}
+
+.glass {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+::selection {
+  background: var(--color-vital-100);
+  color: var(--color-clinical-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-clinical-500);
+  outline-offset: 2px;
+}
+
+/* react-big-calendar minimal theme override, refined later in Phase 2 */
+.rbc-calendar { font-family: var(--font-body); }
